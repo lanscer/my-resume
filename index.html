@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>柳斌 · 前端设计师</title>
+  <meta name="description" content="柳斌，前端设计师。10年+ 平面设计经验，Vibe Coding · 线下物料制作，现居杭州。">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <style>
+    /* =========================================================================
+       首页专属结构层（只补 base.css 没有的页面结构，排版/颜色/字号全部走令牌）
+       ========================================================================= */
+
+    /* ---------------------------------------------------------------- Hero */
+    .hero {
+      position: relative;
+      padding-top: clamp(16px, 3vw, 48px);
+      padding-bottom: 0;
+      overflow: clip;
+    }
+
+    .hero__inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) clamp(300px, 45vw, 647px);
+      align-items: end;
+      min-height: clamp(520px, 62vw, 894px);
+      padding-bottom: 0;
+    }
+
+    .hero__copy {
+      align-self: center;
+      padding-bottom: clamp(0px, 9.6vw, 138px);
+    }
+
+    .hero__hello {
+      margin-bottom: clamp(10px, 1.4vw, 22px);
+      font-size: clamp(15px, 1.3vw, 19px);
+      color: var(--muted);
+    }
+
+    .hero__title { color: var(--ink); }
+
+    /* 设计稿里 H1 恒为一行；≥1200 保底不折行，小屏仍正常换行 */
+    @media (min-width: 1200px) {
+      .hero__title { white-space: nowrap; }
+    }
+
+    .hero__sub {
+      margin-top: clamp(14px, 1.8vw, 26px);
+      font-family: var(--font-serif);
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: 0.01em;
+    }
+
+    .hero__meta {
+      margin-top: clamp(8px, 1vw, 14px);
+      font-size: clamp(15px, 1.35vw, 19px);
+      color: var(--muted);
+    }
+
+    .hero__cta {
+      margin-top: clamp(24px, 3vw, 44px);
+      font-size: clamp(15px, 1.35vw, 19px);
+    }
+
+    .hero__media {
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      align-self: end;
+    }
+
+    .hero__media-inner { display: block; }
+
+    /* 人像 + 手写署名合成一张 3:4 图：高度主导、宽度自动（按原始比例，不拉伸不裁切） */
+    .hero__photo {
+      width: auto;
+      max-width: none;
+      height: clamp(420px, 52.7vw, 762px);
+    }
+
+    .hero__scroll {
+      position: absolute;
+      left: calc(var(--pad-x) + 10px);
+      bottom: clamp(28px, 3vw, 44px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .hero__scroll-line {
+      display: block;
+      width: 1px;
+      height: clamp(56px, 7vw, 96px);
+      background: var(--line);
+    }
+
+    /* ------------------------------------------------------------ 工作台 */
+    .intro .section__body { grid-template-columns: 33.33% minmax(0, 1fr); }
+
+    .intro__main {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) clamp(180px, 22vw, 300px);
+      gap: clamp(24px, 4vw, 64px);
+      align-items: start;
+    }
+
+    .intro__chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: clamp(20px, 2.6vw, 38px);
+    }
+
+    .intro__text .body { color: var(--panel-muted); line-height: 2; }
+
+    .intro__text .body + .body { margin-top: 1.4em; }
+
+    .intro__quote { color: var(--panel-ink); font-weight: 500; }
+
+    .intro__skills { margin-top: clamp(28px, 3.4vw, 52px); }
+
+    .intro__skills-label {
+      margin-bottom: 10px;
+      font-size: var(--fs-label);
+      color: var(--panel-muted);
+    }
+
+    .intro__skills-list {
+      max-width: 48ch;
+      font-size: var(--fs-body-sm);
+      line-height: 1.95;
+      color: var(--panel-muted);
+    }
+
+    .intro__figure { margin: 0; }
+    .intro__figure img { width: 100%; height: auto; }
+
+    /* -------------------------------------------------------- 作品 · 项目 */
+    .works .section__body { grid-template-columns: 17% minmax(0, 1fr); }
+
+    .works__list {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(14px, 1.6vw, 24px);
+    }
+
+    .works__note::before {
+      content: "";
+      position: absolute;
+      left: -8%;
+      top: -32%;
+      width: 42%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle at 45% 45%, rgba(255, 255, 255, 0.075), transparent 68%);
+      pointer-events: none;
+    }
+
+    /* 核心大卡主视觉：与图像同比例 16:10，故 cover 不裁切；圆角由 .card 的 overflow:hidden 负责 */
+    .works__hero-media {
+      aspect-ratio: 16 / 10;
+      background: var(--panel);
+    }
+
+    .works__hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .works__hero .card__body {
+      padding: clamp(28px, 4.2vw, 60px) clamp(24px, 3vw, 40px) clamp(24px, 3.4vw, 52px)
+        clamp(24px, 12vw, 173px);
+      gap: 0;
+    }
+
+    .works__badge {
+      align-self: flex-start;
+      margin-bottom: clamp(14px, 1.8vw, 24px);
+      padding: 5px 12px;
+      border-radius: 3px;
+      background: var(--accent);
+      color: var(--paper);
+      font-size: var(--fs-label);
+      line-height: 1.2;
+    }
+
+    .works__sub {
+      margin-top: 6px;
+      font-size: var(--fs-body-sm);
+      color: var(--panel-muted);
+    }
+
+    .works__desc {
+      margin-top: clamp(16px, 2vw, 28px);
+      max-width: 60ch;
+      font-size: var(--fs-body-sm);
+      line-height: 2;
+      color: var(--panel-muted);
+    }
+
+    .works__stats {
+      margin-top: clamp(18px, 2.4vw, 32px);
+      font-size: var(--fs-body-sm);
+    }
+
+    .works__stack {
+      margin-top: clamp(12px, 1.6vw, 18px);
+      font-size: var(--fs-label);
+      letter-spacing: 0.02em;
+      color: #5F5F5F;
+    }
+
+    .works__features { margin-top: 0; }
+
+    .works__features .card { min-height: clamp(160px, 17vw, 248px); }
+
+    .works__features .card__desc { line-height: 1.85; }
+
+    .works__wide .card__body {
+      padding: clamp(26px, 3.4vw, 48px) clamp(24px, 3vw, 44px) clamp(26px, 3.4vw, 48px)
+        clamp(24px, 13vw, 215px);
+      gap: 8px;
+    }
+
+    .works__wide .card__desc + .card__desc { margin-top: 0; }
+
+    .works__card-media img { object-fit: cover; }
+
+    /* ------------------------------------------------------------ 工作经历 */
+    .experience__list { display: flex; flex-direction: column; }
+
+    .experience__row {
+      display: grid;
+      grid-template-columns: 32% minmax(0, 1fr);
+      gap: var(--gap);
+      align-items: start;
+    }
+
+    .experience__head { padding-bottom: clamp(28px, 3.4vw, 56px); }
+
+    .experience__role {
+      padding-top: clamp(20px, 2.4vw, 36px);
+      font-size: var(--fs-body-sm);
+      color: var(--panel-muted);
+    }
+
+    .experience__body {
+      padding-top: clamp(20px, 2.4vw, 36px);
+      padding-bottom: clamp(24px, 3vw, 44px);
+    }
+
+    .experience__row + .experience__row .experience__body {
+      border-top: 1px solid var(--panel-line);
+    }
+
+    .experience__row + .experience__row .experience__role {
+      padding-top: clamp(20px, 2.4vw, 36px);
+    }
+
+    .experience__date {
+      font-size: var(--fs-label);
+      color: var(--panel-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .experience__company {
+      margin-top: 8px;
+      font-size: clamp(19px, 1.7vw, 24px);
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--panel-ink);
+    }
+
+    .experience__title {
+      margin-top: 4px;
+      font-size: var(--fs-body-sm);
+      color: var(--panel-muted);
+    }
+
+    .experience__desc {
+      margin-top: clamp(12px, 1.6vw, 20px);
+      max-width: 62ch;
+      font-size: var(--fs-body-sm);
+      line-height: 1.95;
+      color: var(--panel-muted);
+    }
+
+    .experience__desc + .experience__desc { margin-top: 0; }
+
+    /* ---------------------------------------------------------------- 页脚 */
+    .footer__inner {
+      display: grid;
+      grid-template-columns: 17% minmax(0, 1fr);
+      gap: var(--gap);
+      align-items: start;
+    }
+
+    .footer__rail-label { color: var(--ink); }
+
+    .footer__star { color: var(--accent); }
+
+    /* ------------------------------------------------------------ 响应式 */
+    @media (max-width: 1024px) {
+      .hero__inner {
+        grid-template-columns: minmax(0, 1fr);
+        row-gap: clamp(28px, 6vw, 56px);
+        min-height: 0;
+      }
+
+      .hero__copy { padding-bottom: 0; }
+
+      .hero__media { justify-content: center; }
+
+      .hero__scroll { display: none; }
+
+      .hero { padding-bottom: clamp(32px, 6vw, 64px); }
+
+      .intro .section__body,
+      .works .section__body { grid-template-columns: minmax(0, 1fr); }
+
+      .intro__main { grid-template-columns: minmax(0, 1fr); }
+
+      .intro__figure { max-width: 420px; }
+
+      .experience__row { grid-template-columns: minmax(0, 1fr); }
+
+      .experience__role { padding-top: 0; padding-bottom: 10px; }
+
+      .experience__row + .experience__row .experience__role { padding-top: 0; }
+
+      .experience__body { padding-top: 0; }
+
+      .footer__inner { grid-template-columns: minmax(0, 1fr); row-gap: 18px; }
+
+      .works__hero .card__body,
+      .works__wide .card__body { padding-left: clamp(24px, 5vw, 48px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-lines" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="shell topbar__inner">
+      <button class="menu-btn" type="button" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+      <nav class="nav" aria-label="主导航">
+        <a class="nav__item is-active" href="index.html" aria-current="page">
+          <span class="nav__num">01</span><span class="nav__label">首页</span>
+        </a>
+        <a class="nav__item" href="about.html">
+          <span class="nav__num">02</span><span class="nav__label">关于我</span>
+        </a>
+        <a class="nav__item" href="works.html">
+          <span class="nav__num">03</span><span class="nav__label">作品</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- 01 Hero -->
+    <section class="hero" id="hero" data-hero aria-labelledby="hero-title">
+      <div class="shell hero__inner">
+        <div class="hero__copy">
+          <p class="hero__hello hero__seg" style="--i:0">你好，我是柳斌</p>
+          <h1 class="display-hero hero__title hero__seg" id="hero-title" style="--i:1">前端设计师</h1>
+          <p class="hero-sub hero__sub hero__seg" style="--i:2">Vibe Coding · 线下物料制作</p>
+          <p class="hero__meta hero__seg" style="--i:3">10年+ 平面设计经验 · 现居杭州</p>
+          <p class="hero__cta hero__seg" style="--i:4">
+            <a class="link-underline" href="works.html">查看作品</a>
+          </p>
+        </div>
+        <div class="hero__media hero__seg hero__seg--media" style="--i:2">
+          <div class="hero__media-inner" data-parallax="18">
+            <img class="hero__photo" src="assets/img/hero.png" width="896" height="1200"
+                 alt="柳斌 · 前端设计师">
+          </div>
+        </div>
+      </div>
+      <div class="hero__scroll" aria-hidden="true">
+        <span class="vertical">向下滚动查看</span>
+        <span class="hero__scroll-line"></span>
+      </div>
+    </section>
+
+    <!-- 02 工作台 -->
+    <section class="section section--dark intro" id="intro" aria-labelledby="intro-title">
+      <div class="shell section__body">
+        <div class="section__rail">
+          <h2 class="block-title" id="intro-title">工作台</h2>
+        </div>
+        <div class="intro__main">
+          <div class="intro__text">
+            <ul class="intro__chips">
+              <li class="tag">Vibe Coding</li>
+              <li class="tag">平面设计</li>
+              <li class="tag">线下物料制作</li>
+              <li class="tag">ComfyUI</li>
+            </ul>
+            <p class="body">10年+ 平面设计经验，擅长品牌视觉、包装、海报、电商设计及线下活动物料的对接制作与落地施工。</p>
+            <p class="body intro__quote">我用设计语言和技术工具说话。</p>
+            <p class="body">近年深入 Vibe Coding 与 AI 图像领域，将创意设计能力延伸到本地 Agent 开发与跨平台工具交付。</p>
+            <div class="intro__skills">
+              <p class="intro__skills-label">技能范围</p>
+              <p class="intro__skills-list">Logo · 品牌 VI · 包装 · 海报 · 电商详情页 · 宣传册 · App UI · 网页 · 线下展会厅 · 活动物料对接 · 加工厂对接 · 落地施工监督 · ComfyUI · Vibe Coding</p>
+            </div>
+          </div>
+          <figure class="intro__figure" data-parallax="16">
+            <img src="assets/img/intro-desk.png" width="392" height="398"
+                 alt="工作台实拍：显示器、笔记本电脑与键盘">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 作品 · 项目 -->
+    <section class="section works" id="works" aria-labelledby="works-title">
+      <div class="shell section__body">
+        <div class="section__rail">
+          <h2 class="block-title" id="works-title">作品 · 项目</h2>
+        </div>
+
+        <div class="works__list">
+          <article class="card card--hero works__hero reveal" data-tilt data-stagger>
+            <figure class="card__media works__hero-media">
+              <img src="assets/img/canvas-home.png" width="1600" height="1000"
+                   alt="infinite-canvas-LL 应用首页：無限画布主视觉、顶部导航与提示词输入区">
+            </figure>
+            <div class="card__body">
+              <span class="works__badge">核心项目</span>
+              <h3 class="card__title">infinite-canvas-LL</h3>
+              <p class="works__sub">无限画布 · AI 视觉创作工作台</p>
+              <p class="works__desc">基于开源 basketikun/infinite-canvas 二次开发，整合浏览器无限画布、本地 Codex Agent、本地 GPU 图像引擎与 Photocraft 位图编辑器，构建完整 AI 视觉创作工作台。独立负责全栈开发、画布交互、Agent 集成及 macOS / Windows 跨平台交付。</p>
+              <ul class="stats works__stats">
+                <li class="stat"><span class="stat__num" data-count="636">636</span><span class="stat__unit">commits</span></li>
+                <li class="stat"><span class="stat__num" data-count="22">22</span><span class="stat__unit">AI 编辑工具</span></li>
+                <li class="stat"><span class="stat__num" data-count="376">376</span><span class="stat__unit">单元测试</span></li>
+                <li class="stat"><span class="stat__num">5.5mo</span></li>
+                <li class="stat"><span class="stat__label">2026.05-10</span></li>
+              </ul>
+              <p class="works__stack">React19 · Vite7 · TypeScript · Zustand · Node.js · MCP · Codex · Rust/WASM · ComfyUI · LayerD</p>
+            </div>
+          </article>
+
+          <div class="card-grid card-grid--3 works__features" data-stagger>
+            <article class="card reveal" data-tilt>
+              <div class="card__body">
+                <span class="card__eyebrow">01</span>
+                <h3 class="card__title">无限画布交互</h3>
+                <p class="card__desc">拖拽 / 缩放 / 连线 / 多页面 / 图层面板</p>
+                <p class="card__desc">富文本 · 触控板与鼠标手势分层识别</p>
+              </div>
+            </article>
+            <article class="card reveal" data-tilt style="--i:1">
+              <div class="card__body">
+                <span class="card__eyebrow">02</span>
+                <h3 class="card__title">AI 图像编辑</h3>
+                <p class="card__desc">多角度重绘 · 扩图 · 去背景 · 局部编辑</p>
+                <p class="card__desc">OCR · 超分 · 图生视频 · 多层 PSD 导出</p>
+                <p class="card__desc">ComfyUI / LayerD 双链路</p>
+              </div>
+            </article>
+            <article class="card reveal" data-tilt style="--i:2">
+              <div class="card__body">
+                <span class="card__eyebrow">03</span>
+                <h3 class="card__title">本地 Agent</h3>
+                <p class="card__desc">内嵌 Codex + MCP · 渠道 API 接入</p>
+                <p class="card__desc">SSE 流式 · 资产引用 · 技能注入</p>
+                <p class="card__desc">长任务看门狗与事件隔离</p>
+              </div>
+            </article>
+            <article class="card reveal" data-tilt style="--i:0">
+              <div class="card__body">
+                <span class="card__eyebrow">04</span>
+                <h3 class="card__title">Photocraft</h3>
+                <p class="card__desc">Rust/WASM 网页版嵌入 + headless CLI</p>
+                <p class="card__desc">文档 revision 管理</p>
+              </div>
+            </article>
+            <article class="card reveal" data-tilt style="--i:1">
+              <div class="card__body">
+                <span class="card__eyebrow">05</span>
+                <h3 class="card__title">跨平台交付</h3>
+                <p class="card__desc">macOS / Windows 一键启动 / 停止</p>
+                <p class="card__desc">状态检测 · doctor 自检 · 多机远程使用</p>
+              </div>
+            </article>
+          </div>
+
+          <article class="card card--wide works__wide reveal" data-tilt>
+            <div class="card__body">
+              <p class="card__meta" style="margin:0;padding:0">2019.12</p>
+              <h3 class="card__title">跨境采购 App · 巧巧郎 UI</h3>
+              <p class="card__desc">前端 UI 页面设计 · 二楼功能及子页面</p>
+              <p class="card__desc">功能逻辑区分 · 界面设计 · 开箱等物料</p>
+              <p class="card__desc" style="margin-top:16px;color:#5F5F5F">电商 / App UI · 长期维护开发</p>
+            </div>
+            <div class="card__media works__card-media">
+              <img src="assets/img/work-qiaqiaolang.png" width="527" height="296"
+                   alt="跨境采购 App · 巧巧郎 UI 界面视觉">
+            </div>
+          </article>
+
+          <article class="card card--wide card--media-left works__wide reveal" data-tilt>
+            <div class="card__body">
+              <p class="card__meta" style="margin:0;padding:0">2018.06-2019.01</p>
+              <h3 class="card__title">国元期货 App UI</h3>
+              <p class="card__desc">App 初次界面设计及后续迭代</p>
+              <p class="card__desc">设计规范 · 交互 · 启动页 · 平台上架界面</p>
+              <p class="card__desc">banner · 活动展示页</p>
+              <p class="card__desc" style="margin-top:16px;color:#5F5F5F">金融科技 · App UI · 商业项目</p>
+            </div>
+            <div class="card__media works__card-media">
+              <img src="assets/img/work-guoyuan.png" width="527" height="295"
+                   alt="国元期货 App UI 界面视觉">
+            </div>
+          </article>
+
+          <article class="card works__wide works__note reveal" data-tilt>
+            <div class="card__body">
+              <p class="card__meta" style="margin:0;padding:0">2024.01-至今 · 龙泉远翔广告有限公司</p>
+              <h3 class="card__title">线下大型物料 · 展会 · 展厅视觉</h3>
+              <p class="card__desc">对接各级乡政府、市政单位及工业单位的线下广告、展会、展厅和活动设计；</p>
+              <p class="card__desc">负责整套活动对接与实际落地，出设计稿、甲方对接、加工厂对接及监督施工安装。</p>
+              <p class="card__desc" style="margin-top:16px;color:#5F5F5F">岩樟乡红色展厅整体视觉 · 四月八盘歌会活动物料及主背景 · 统战部剑池同心背景墙 · 西街三江口浙风风貌延展 logo 布景物料</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 工作经历 -->
+    <section class="section section--dark experience" id="experience" aria-labelledby="experience-title">
+      <div class="shell">
+        <div class="experience__list">
+          <div class="experience__row experience__head">
+            <h2 class="block-title" id="experience-title">工作经历</h2>
+          </div>
+
+          <div class="experience__row">
+            <p class="experience__role">设计总监</p>
+            <div class="experience__body">
+              <p class="experience__date">2024.01 — 至今</p>
+              <h3 class="experience__company">龙泉远翔广告有限公司</h3>
+              <p class="experience__title">设计总监 · 设计部</p>
+              <p class="experience__desc">对接各级乡政府和市政单位、工业单位的线下广告、展会、展厅和活动设计；负责整套活动对接与实际落地，出实际设计稿、平面效果图、甲方对接、加工厂对接及监督落地施工安装。</p>
+            </div>
+          </div>
+
+          <div class="experience__row">
+            <p class="experience__role">平面设计师</p>
+            <div class="experience__body">
+              <p class="experience__date">2016.11 — 2020.02</p>
+              <h3 class="experience__company">宁波梦谷网络科技有限公司</h3>
+              <p class="experience__title">平面设计师 · 设计部</p>
+              <p class="experience__desc">独立完成多项设计工作，涵盖平面、logo、包装、海报、电商详情页与主图、宣传册、App UI 与网页设计。</p>
+            </div>
+          </div>
+
+          <div class="experience__row">
+            <p class="experience__role">平面设计</p>
+            <div class="experience__body">
+              <p class="experience__date">2019.04 — 2019.12</p>
+              <h3 class="experience__company">杭州听工场科技有限公司</h3>
+              <p class="experience__title">平面设计（设计总监职能）</p>
+              <p class="experience__desc">企业形象 VI · 电商产品拍摄 · 产品包装</p>
+              <p class="experience__desc">电商视觉 · 产品视频拍摄剪辑</p>
+            </div>
+          </div>
+
+          <div class="experience__row">
+            <p class="experience__role">在读</p>
+            <div class="experience__body">
+              <p class="experience__date">2024 — 2026</p>
+              <h3 class="experience__company">浙江广播电视大学</h3>
+              <p class="experience__title">大专 · 行政管理</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 页脚 CTA -->
+    <footer class="footer">
+      <div class="shell footer__inner">
+        <p class="block-title footer__rail-label">合作</p>
+        <div class="footer__main reveal">
+          <h2 class="footer__title">开放平面 · Vibe Coding 合作</h2>
+          <p class="footer__note"><span class="footer__star">*</span>欢迎品牌方、开发团队就平面设计、线下物料制作及 AI 工具开发展开合作洽谈。</p>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="assets/js/motion.js" defer></script>
+</body>
+</html>

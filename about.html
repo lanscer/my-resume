@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>关于我 · 柳斌</title>
+<meta name="description" content="柳斌 · 平面设计师 / 设计总监。品牌视觉、数字界面、线下物料与 AI 辅助创作。">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<style>
+/* ==========================================================================
+   about.html 页面私有布局（只补 base.css 未覆盖的本页结构，不重定义基础层）
+   颜色/字号/间距一律引用 tokens.css 变量。
+   ========================================================================== */
+
+/* ---- 顶栏：设计稿在导航行下方有一条通栏细线 ---- */
+.topbar--ruled { border-bottom: 1px solid var(--line); }
+
+/* ---- 左栏：返回首页 + 小标 ---- */
+.about-rail { gap: clamp(28px, 4vw, 48px); }
+
+.about-rail__back {
+  font-size: var(--fs-body-sm);
+  color: var(--ink-soft);
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.about-rail__back:hover { color: var(--ink); }
+
+.about-rail__mark {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ---- 1. 个人介绍 ---- */
+.profile {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);
+  column-gap: clamp(24px, 3.4vw, 56px);
+  align-items: start;
+}
+
+.profile__name {
+  margin-top: 14px;
+  font-size: clamp(52px, 6vw, 92px);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+
+.profile__role {
+  margin-top: 12px;
+  font-size: var(--fs-hero-sub);
+  line-height: var(--lh-snug);
+  color: var(--ink);
+}
+
+.profile__meta { margin-top: 10px; }
+
+.profile__rule { margin-top: clamp(28px, 3.6vw, 52px); }
+
+.profile__claim {
+  margin-top: clamp(24px, 3vw, 40px);
+  font-size: clamp(20px, 2.1vw, 30px);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.profile__claim span { display: block; }
+
+.profile__body { margin-top: clamp(24px, 3vw, 40px); }
+
+.profile__body .body { max-width: 34em; }
+
+.profile__media {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.profile__media img {
+  width: 100%;
+  max-width: 540px;
+  height: auto;
+}
+
+/* ---- 2. 专业能力（深色 2×2） ---- */
+.caps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(28px, 4.4vw, 88px);
+  row-gap: clamp(40px, 4.4vw, 76px);
+  margin-top: clamp(40px, 4.6vw, 72px);
+}
+
+.cap {
+  padding-top: clamp(18px, 1.6vw, 24px);
+  border-top: 1px solid var(--panel-line);
+}
+
+.cap__label {
+  font-size: var(--fs-label-sm);
+  font-weight: 500;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--panel-muted);
+}
+
+.cap__title {
+  margin-top: clamp(14px, 1.4vw, 20px);
+  font-size: clamp(22px, 2.1vw, 30px);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.cap__list {
+  margin-top: clamp(14px, 1.4vw, 20px);
+  font-size: var(--fs-body-sm);
+  line-height: 1.95;
+  color: var(--panel-muted);
+}
+
+.cap__list span { display: block; }
+
+/* ---- 3/5. 时间线（工作经历 / 项目经历 / 教育经历） ---- */
+.timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: minmax(0, 0.27fr) minmax(0, 1fr);
+  column-gap: clamp(16px, 2vw, 32px);
+  align-items: start;
+  padding-block: clamp(22px, 2.4vw, 34px);
+  border-top: 1px solid var(--line);
+}
+
+.section--dark .entry { border-top-color: var(--panel-line); }
+
+.entry__date {
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-body);
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  padding-top: 6px;
+}
+
+.entry__title {
+  font-size: clamp(22px, 2.2vw, 30px);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.entry__role {
+  margin-top: 10px;
+  font-size: var(--fs-body-sm);
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.entry__desc {
+  margin-top: clamp(12px, 1.4vw, 20px);
+  max-width: 66ch;
+  font-size: var(--fs-body-sm);
+  line-height: 1.9;
+  color: var(--ink-soft);
+}
+
+.entry__desc + .entry__desc { margin-top: 1.1em; }
+
+.section--dark .entry__date { color: var(--panel-muted); }
+
+.section--dark .entry__role { color: var(--panel-ink); }
+
+.section--dark .entry__desc { color: var(--panel-muted); }
+
+/* 项目经历：深色两栏，日期在标题上方，每栏带顶部分隔线 */
+.projects {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(24px, 4vw, 88px);
+  row-gap: clamp(32px, 4vw, 56px);
+}
+
+.project {
+  border-top: 1px solid var(--panel-line);
+  padding-top: clamp(16px, 1.8vw, 24px);
+}
+
+.project__date {
+  font-size: var(--fs-label);
+  letter-spacing: 0.02em;
+  color: var(--panel-muted);
+}
+
+.project__title {
+  margin-top: clamp(14px, 1.6vw, 22px);
+  font-size: clamp(20px, 1.9vw, 26px);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.project__role {
+  margin-top: 10px;
+  font-size: var(--fs-body-sm);
+  font-weight: 500;
+  color: var(--panel-ink);
+}
+
+.project__desc {
+  margin-top: clamp(12px, 1.4vw, 18px);
+  font-size: var(--fs-body-sm);
+  line-height: 1.9;
+  color: var(--panel-muted);
+}
+
+/* ---- 6. 求职意向 ---- */
+.career {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px clamp(14px, 2vw, 26px);
+  font-size: clamp(17px, 1.6vw, 23px);
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.career__sep { color: var(--muted-2); }
+
+.career__note {
+  margin-top: clamp(12px, 1.4vw, 18px);
+  font-size: var(--fs-body-sm);
+  color: var(--muted);
+}
+
+/* ---- 7. 联系方式（深色 2×2） ---- */
+.contact {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(24px, 4.4vw, 88px);
+  row-gap: clamp(32px, 3.6vw, 60px);
+  margin-top: clamp(40px, 4.4vw, 68px);
+}
+
+.contact__item {
+  padding-top: clamp(16px, 1.6vw, 22px);
+  border-top: 1px solid var(--panel-line);
+}
+
+.contact__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.contact__label {
+  font-size: var(--fs-body-sm);
+  font-weight: 500;
+  color: var(--panel-ink);
+}
+
+.contact__en {
+  font-size: var(--fs-label-sm);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--panel-muted);
+}
+
+.contact__value {
+  margin-top: clamp(18px, 2.2vw, 34px);
+  font-size: clamp(24px, 2.7vw, 40px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.005em;
+  color: var(--panel-ink);
+  overflow-wrap: anywhere;
+}
+
+.about-end { margin-top: clamp(48px, 6vw, 96px); }
+
+/* ---- 响应式：≤1024 纵向堆叠 ---- */
+@media (max-width: 1024px) {
+  .about-rail { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .profile { grid-template-columns: 1fr; row-gap: 36px; }
+  .profile__media { justify-content: flex-start; }
+  .profile__media img { max-width: 420px; }
+  .caps { grid-template-columns: 1fr; row-gap: 32px; }
+  .contact { grid-template-columns: 1fr; row-gap: 28px; }
+  .projects { grid-template-columns: 1fr; row-gap: 28px; }
+  .entry { grid-template-columns: 1fr; row-gap: 6px; }
+  .entry__date { padding-top: 0; }
+}
+
+@media (max-width: 700px) {
+  .profile__name { font-size: clamp(42px, 13vw, 58px); }
+  .profile__claim { font-size: clamp(18px, 5.4vw, 22px); }
+}
+</style>
+</head>
+<body>
+
+<div class="grid-lines" aria-hidden="true"></div>
+
+<header class="topbar topbar--ruled">
+  <div class="shell topbar__inner">
+    <button class="menu-btn" type="button" aria-label="打开菜单">
+      <span></span><span></span>
+    </button>
+
+    <nav class="nav" aria-label="主导航">
+      <a class="nav__item" href="index.html">
+        <span class="nav__num">01</span><span class="nav__label">首页</span>
+      </a>
+      <a class="nav__item is-active" href="about.html" aria-current="page">
+        <span class="nav__num">02</span><span class="nav__label">关于我</span>
+      </a>
+      <a class="nav__item" href="works.html">
+        <span class="nav__num">03</span><span class="nav__label">作品</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+
+  <!-- ============================ 1. 个人介绍 ============================ -->
+  <section class="section" id="profile">
+    <div class="shell">
+      <div class="section__body">
+
+        <div class="section__rail about-rail">
+          <a class="about-rail__back" href="index.html">← 返回首页</a>
+          <div class="about-rail__mark">
+            <span class="block-title">个人介绍</span>
+            <span class="rail__en">PROFILE</span>
+          </div>
+        </div>
+
+        <div class="profile">
+          <div class="profile__main">
+            <p class="eyebrow reveal"><span class="eyebrow__cn">关于我</span> / ABOUT ME</p>
+
+            <h1 class="profile__name reveal" style="--i:1">柳斌</h1>
+            <p class="profile__role reveal" style="--i:2">平面设计师 / 设计总监</p>
+            <p class="meta profile__meta reveal" style="--i:3">10年以上平面设计经验 · Vibe Coding · AI 辅助创作</p>
+
+            <hr class="hairline profile__rule">
+
+            <p class="profile__claim reveal"><span>我用设计语言和技术工具说话。</span><span>从视觉表达，到实际落地。</span></p>
+
+            <div class="profile__body reveal">
+              <p class="body">我的工作涵盖品牌视觉、包装、海报、电商详情页与主图、宣传册、App UI 和网页设计，也延伸到线下活动、展会与展厅物料的设计、制作与现场落地。</p>
+              <p class="body">在长期的设计实践之外，我持续探索 Vibe Coding 与 ComfyUI，将 AI 辅助创作融入设计工作，让创意表达与技术实现相互连接。</p>
+            </div>
+          </div>
+
+          <figure class="profile__media reveal reveal--right" style="--i:1">
+            <img src="assets/img/about-icons.png" alt="AI 辅助创作与设计工具的立体图标簇：ComfyUI、ChatGPT、Illustrator、Photoshop、Figma、Codex 等" width="519" height="463">
+          </figure>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 2. 专业能力 ============================ -->
+  <section class="section section--dark" id="capabilities">
+    <div class="shell">
+      <div class="section__body">
+
+        <div class="section__rail">
+          <span class="block-title">专业能力</span>
+          <span class="rail__en">CAPABILITIES</span>
+        </div>
+
+        <div class="section__main">
+          <h2 class="section__title reveal">从平面到界面，从设计稿到现场。</h2>
+
+          <div class="caps">
+            <article class="cap reveal">
+              <p class="cap__label">VISUAL DESIGN</p>
+              <h3 class="cap__title">品牌与商业视觉</h3>
+              <p class="cap__list"><span>Logo / 品牌 VI / 包装 / 海报 / 宣传册</span><span>电商详情页与主图 / Photoshop</span></p>
+            </article>
+
+            <article class="cap reveal" style="--i:1">
+              <p class="cap__label">DIGITAL EXPERIENCE</p>
+              <h3 class="cap__title">数字界面与内容</h3>
+              <p class="cap__list"><span>App UI / 网页设计 / 界面规范</span><span>产品摄影 / 产品视频拍摄与剪辑</span></p>
+            </article>
+
+            <article class="cap reveal">
+              <p class="cap__label">PRODUCTION</p>
+              <h3 class="cap__title">线下物料与落地</h3>
+              <p class="cap__list"><span>活动 / 展会 / 展厅物料设计制作</span><span>甲方及加工厂对接 / 施工安装监督</span></p>
+            </article>
+
+            <article class="cap reveal" style="--i:1">
+              <p class="cap__label">AI &amp; CODING</p>
+              <h3 class="cap__title">技术与辅助创作</h3>
+              <p class="cap__list"><span>Vibe Coding / ComfyUI</span><span>AI 图像探索 / 设计与技术结合</span></p>
+            </article>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 3. 工作经历 ============================ -->
+  <section class="section" id="experience">
+    <div class="shell">
+      <div class="section__body">
+
+        <div class="section__rail">
+          <span class="block-title">工作经历</span>
+          <span class="rail__en">EXPERIENCE</span>
+        </div>
+
+        <div class="timeline section__main">
+
+          <article class="entry reveal">
+            <p class="entry__date">2024.01 — 至今</p>
+            <div>
+              <h3 class="entry__title">龙泉远翔广告有限公司</h3>
+              <p class="entry__role">设计总监 · 设计部</p>
+              <p class="entry__desc">对接各级乡政府、市政单位与工业单位，负责线下广告、展会、展厅及活动设计。输出实际设计稿与平面效果图，协调甲方和加工厂，并监督现场施工安装，推动活动方案落地。</p>
+              <p class="entry__desc">代表工作：红色展厅整体视觉、四月八盘歌会活动物料与主背景、统战部背景墙、地方城市风貌 Logo 延展与布景物料。</p>
+            </div>
+          </article>
+
+          <article class="entry reveal">
+            <p class="entry__date">2016.11 — 2020.02</p>
+            <div>
+              <h3 class="entry__title">宁波梦谷网络科技有限公司</h3>
+              <p class="entry__role">平面设计师 · 设计部</p>
+              <p class="entry__desc">独立完成多项设计工作，涵盖平面、Logo、包装、海报、电商详情页与主图、宣传册、App UI 和网页设计。</p>
+            </div>
+          </article>
+
+          <article class="entry reveal">
+            <p class="entry__date">2019.04 — 2019.12</p>
+            <div>
+              <h3 class="entry__title">杭州听工场科技有限公司</h3>
+              <p class="entry__role">平面设计 · 承担设计总监职能</p>
+              <p class="entry__desc">负责企业形象 VI、电商产品拍摄、包装设计与电商视觉，并承担产品视频的拍摄与剪辑工作。</p>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 4. 项目经历 ============================ -->
+  <section class="section section--dark" id="projects">
+    <div class="shell">
+      <div class="section__body">
+
+        <div class="section__rail">
+          <span class="block-title">项目经历</span>
+          <span class="rail__en">SELECTED EXPERIENCE</span>
+        </div>
+
+        <div class="section__main">
+          <h2 class="section__title reveal">把视觉经验，延伸到数字产品。</h2>
+
+          <div class="projects" style="margin-top: clamp(36px, 4vw, 64px)">
+            <article class="project reveal">
+              <p class="project__date">2019.12 起</p>
+              <h3 class="project__title">跨境采购 App · 巧巧郎</h3>
+              <p class="project__role">前端 UI 页面设计</p>
+              <p class="project__desc">参与长期维护开发，负责二楼功能及其他子页面、功能逻辑分区与界面设计，以及开箱相关物料。</p>
+            </article>
+
+            <article class="project reveal" style="--i:1">
+              <p class="project__date">2018.06 — 2019.01</p>
+              <h3 class="project__title">国元期货 App</h3>
+              <p class="project__role">UI 页面设计与迭代</p>
+              <p class="project__desc">负责 App 初次界面设计与后期迭代，制定设计标准规范与交互设计，完成启动页、平台上架页面、Banner 和活动展示页。</p>
+            </article>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 5. 教育经历 ============================ -->
+  <section class="section" id="education">
+    <div class="shell">
+      <div class="section__body">
+
+        <div class="section__rail">
+          <span class="block-title">教育经历</span>
+          <span class="rail__en">EDUCATION</span>
+        </div>
+
+        <div class="timeline section__main">
+
+          <article class="entry reveal">
+            <p class="entry__date">2024 — 2026</p>
+            <div>
+              <h3 class="entry__title">浙江广播电视大学</h3>
+              <p class="entry__role">大专 · 行政管理 · 非全日制</p>
+              <p class="entry__desc">毕业论文方向：饮品集团 4P 营销策略的现状、问题与对策。</p>
+            </div>
+          </article>
+
+          <article class="entry reveal">
+            <p class="entry__date">2011 — 2014</p>
+            <div>
+              <h3 class="entry__title">浙江省龙泉市求是中学</h3>
+              <p class="entry__role">普通高中</p>
+              <p class="entry__desc">在校经历：获计算机初级证书。</p>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 6. 求职意向 ============================ -->
+  <section class="section" id="career">
+    <div class="shell">
+      <div class="section__body">
+
+        <div class="section__rail">
+          <span class="block-title">求职意向</span>
+          <span class="rail__en">CAREER PREFERENCE</span>
+        </div>
+
+        <div class="section__main reveal">
+          <p class="career">
+            <span>杭州 · 前端开发工程师</span>
+            <span class="career__sep" aria-hidden="true">/</span>
+            <span>期望薪资 13–20K</span>
+            <span class="career__sep" aria-hidden="true">/</span>
+            <span>行业不限</span>
+          </p>
+          <p class="career__note">在职 · 以上为原简历求职意向</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 7. 联系方式 ============================ -->
+  <section class="section section--dark" id="contact">
+    <div class="shell">
+      <div class="section__body">
+
+        <div class="section__rail">
+          <span class="block-title">联系方式</span>
+          <span class="rail__en">GET IN TOUCH</span>
+        </div>
+
+        <div class="section__main">
+          <h2 class="section__title reveal">从一次交流，开始新的合作。</h2>
+          <p class="lede reveal" style="margin-top: 18px">欢迎就品牌视觉、线下物料、数字界面与 AI 辅助创作交流。</p>
+
+          <div class="contact">
+            <div class="contact__item reveal">
+              <div class="contact__head">
+                <span class="contact__label">电话</span>
+                <span class="contact__en">PHONE</span>
+              </div>
+              <p class="contact__value">13858100547</p>
+            </div>
+
+            <div class="contact__item reveal" style="--i:1">
+              <div class="contact__head">
+                <span class="contact__label">钉钉</span>
+                <span class="contact__en">DINGTALK</span>
+              </div>
+              <p class="contact__value">13858100547</p>
+            </div>
+
+            <div class="contact__item reveal">
+              <div class="contact__head">
+                <span class="contact__label">微信</span>
+                <span class="contact__en">WECHAT</span>
+              </div>
+              <p class="contact__value">13858100547</p>
+            </div>
+
+            <div class="contact__item reveal" style="--i:1">
+              <div class="contact__head">
+                <span class="contact__label">电子邮箱</span>
+                <span class="contact__en">EMAIL</span>
+              </div>
+              <p class="contact__value"><a href="mailto:lanscer@qq.com">lanscer@qq.com</a></p>
+            </div>
+          </div>
+
+          <hr class="hairline about-end">
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="assets/js/motion.js" defer></script>
+</body>
+</html>

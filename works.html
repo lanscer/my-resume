@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>柳斌 — 作品 · 项目</title>
+<meta name="description" content="柳斌的作品：无限画布 infinite-canvas-LL 实机演示截图，以及跨境采购 App · 巧巧郎 UI、国元期货 App UI、线下大型物料与展厅视觉。">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<style>
+  /* 页面级组件：其他项目紧凑文字行（base.css 无此形态，仅本页使用） */
+  .works-list__row {
+    display: grid;
+    grid-template-columns: minmax(104px, 14%) 1fr auto;
+    gap: var(--gap);
+    align-items: baseline;
+    padding-block: clamp(14px, 1.6vw, 22px);
+    border-top: 1px solid var(--line);
+  }
+
+  .works-list__row:last-child { border-bottom: 1px solid var(--line); }
+
+  .works-list__name {
+    font-size: var(--fs-body);
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--ink);
+  }
+
+  .works-list__tags {
+    font-size: var(--fs-label);
+    letter-spacing: 0.02em;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  /* 16:8.57 的实机截图放进 16:10 容器时改为留白适配，不裁切画面 */
+  .card__media--fit img { object-fit: contain; }
+
+  @media (max-width: 1024px) {
+    .works-list__row { grid-template-columns: minmax(96px, 20%) 1fr; row-gap: 6px; }
+    .works-list__tags { grid-column: 2; text-align: left; }
+  }
+
+  @media (max-width: 700px) {
+    .works-list__row { grid-template-columns: 1fr; row-gap: 6px; }
+    .works-list__tags { grid-column: 1; }
+  }
+</style>
+</head>
+<body>
+<div class="grid-lines" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="shell topbar__inner">
+    <button class="menu-btn" type="button" aria-label="菜单" aria-expanded="false">
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="nav" aria-label="主导航">
+      <a class="nav__item" href="index.html">
+        <span class="nav__num">01</span><span class="nav__label">首页</span>
+      </a>
+      <a class="nav__item" href="about.html">
+        <span class="nav__num">02</span><span class="nav__label">关于我</span>
+      </a>
+      <a class="nav__item is-active" href="works.html" aria-current="page">
+        <span class="nav__num">03</span><span class="nav__label">作品</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+
+  <!-- 顶部 title 区：小标签 作品 / WORKS + 大标 + 一句导语 -->
+  <section class="section">
+    <div class="shell">
+      <div class="section__body">
+        <div class="section__rail reveal" style="--i:0">
+          <span class="eyebrow__cn">作品</span>
+          <span class="rail__en">WORKS</span>
+        </div>
+        <div>
+          <h1 class="section__title reveal" style="--i:1">从视觉表达，到实际落地。</h1>
+          <p class="lede reveal" style="--i:2; margin-top: 18px;">我用设计语言和技术工具说话。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 主视觉 + 两张并排截图卡 -->
+  <section class="section section--flush">
+    <div class="shell">
+      <div class="card-grid">
+
+        <!-- 主视觉大卡：16:10 实机截图全宽完整显示 -->
+        <article class="card card--hero reveal" data-tilt style="--i:0">
+          <figure class="card__media">
+            <img src="assets/img/canvas-home.png" width="1600" height="1000"
+                 alt="无限画布应用首页实机截图：顶部导航、大标「無限画布」与提示词输入卡，右上角版本 v0.20.0"
+                 loading="eager" decoding="async">
+          </figure>
+          <div class="card__body">
+            <p class="card__eyebrow">核心项目</p>
+            <h2 class="card__title">infinite-canvas-LL</h2>
+            <p class="card__desc" style="font-size: var(--fs-body); color: var(--panel-ink);">无限画布 · AI 视觉创作工作台</p>
+            <p class="card__desc" style="max-width: 62ch;">基于开源 basketikun/infinite-canvas 二次开发，整合浏览器无限画布、本地 Codex Agent、本地 GPU 图像引擎与 Photocraft 位图编辑器，构建完整 AI 视觉创作工作台。独立负责全栈开发、画布交互、Agent 集成及 macOS / Windows 跨平台交付。</p>
+            <div class="stats">
+              <span class="stat"><span class="stat__num">636</span><span class="stat__unit">commits</span></span>
+              <span class="stat"><span class="stat__num">22</span><span class="stat__unit">AI 编辑工具</span></span>
+              <span class="stat"><span class="stat__num">376</span><span class="stat__unit">单元测试</span></span>
+              <span class="stat"><span class="stat__num">5.5mo</span></span>
+              <span class="stat__label">2026.05–10</span>
+            </div>
+            <p class="card__meta">React19 · Vite7 · TypeScript · Zustand · Node.js · MCP · Codex · Rust/WASM · ComfyUI · LayerD</p>
+          </div>
+        </article>
+
+        <!-- 01 / 02 两张并排截图卡 -->
+        <div class="card-grid card-grid--2">
+          <article class="card reveal" data-tilt style="--i:0">
+            <figure class="card__media">
+              <img src="assets/img/canvas-workbench.png" width="1600" height="1000"
+                   alt="生图工作台实机截图：左侧生成记录，中间提示词、参考图、模型、质量、尺寸、分辨率与宽高比，右侧生成结果区"
+                   loading="lazy" decoding="async">
+            </figure>
+            <div class="card__body">
+              <p class="card__eyebrow">01</p>
+              <h3 class="card__title">生图工作台</h3>
+              <p class="card__desc">模型、尺寸、分辨率、宽高比与参考图在同一屏设定；右侧为生成结果区。</p>
+            </div>
+          </article>
+
+          <article class="card reveal" data-tilt style="--i:1">
+            <figure class="card__media">
+              <img src="assets/img/canvas-prompts.png" width="1600" height="1000"
+                   alt="提示词中心实机截图：左侧分类与标签，右侧提示词卡片瀑布，顶部写着当前共 1742 条提示词"
+                   loading="lazy" decoding="async">
+            </figure>
+            <div class="card__body">
+              <p class="card__eyebrow">02</p>
+              <h3 class="card__title">提示词中心</h3>
+              <p class="card__desc">当前共 1742 条提示词，按分类与标签检索，卡片可复制或加入我的资产。</p>
+            </div>
+          </article>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 产品实机：画布界面 / 技能库 / Agent 调用技能 -->
+  <section class="section">
+    <div class="shell">
+      <div class="section__body">
+        <div class="section__rail reveal" style="--i:0">
+          <span class="eyebrow__cn">产品实机</span>
+          <span class="rail__en">LIVE UI</span>
+        </div>
+        <div class="card-grid card-grid--3">
+          <article class="card reveal" data-tilt style="--i:0">
+            <figure class="card__media card__media--fit">
+              <img src="assets/img/app-canvas-agent.png" width="1600" height="857"
+                   alt="画布界面实机截图：画布上的参考图节点、顶部页面与缩放条、左侧工具栏、底部生成输入框，右侧 Agent 面板显示 6 个 MCP 服务已完成初始化"
+                   loading="lazy" decoding="async">
+            </figure>
+            <div class="card__body">
+              <p class="card__eyebrow">03</p>
+              <h3 class="card__title">画布界面</h3>
+              <p class="card__desc">参考图落到画布成为节点，右侧 Agent 面板已连本地 Codex，6 个 MCP 工具就绪。</p>
+            </div>
+          </article>
+
+          <article class="card reveal" data-tilt style="--i:1">
+            <figure class="card__media">
+              <img src="assets/img/app-skills.png" width="1600" height="1000"
+                   alt="技能库页面实机截图：搜索框、分类标签与技能卡列表，卡片带标题、简介与上游作者"
+                   loading="lazy" decoding="async">
+            </figure>
+            <div class="card__body">
+              <p class="card__eyebrow">04</p>
+              <h3 class="card__title">技能库</h3>
+              <p class="card__desc">技能库按分类浏览，「CRT复古界面像素插画」只是其中一个：上传照片即重绘成 1980s CRT 像素插画。</p>
+            </div>
+          </article>
+
+          <article class="card reveal" data-tilt style="--i:2">
+            <figure class="card__media card__media--fit">
+              <img src="assets/img/app-skill-invoked.png" width="1600" height="857"
+                   alt="Agent 输入框实机截图：输入框内已挂上技能 chip「/CRT复古界面像素插画」并写着指令，画布上的照片作为身份锚点"
+                   loading="lazy" decoding="async">
+            </figure>
+            <div class="card__body">
+              <p class="card__eyebrow">05</p>
+              <h3 class="card__title">Agent 调用技能</h3>
+              <p class="card__desc">在 Agent 输入框用 / 挂载技能，画布上的照片作为身份锚点一起交给 Agent。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 其他项目：紧凑纯文字行 -->
+  <section class="section">
+    <div class="shell">
+      <div class="section__body">
+        <div class="section__rail reveal" style="--i:0">
+          <span class="eyebrow__cn">其他项目</span>
+          <span class="rail__en">OTHERS</span>
+        </div>
+        <div class="reveal" style="--i:1">
+          <div class="works-list__row">
+            <span class="meta">2019.12</span>
+            <span class="works-list__name">跨境采购 App · 巧巧郎 UI</span>
+            <span class="works-list__tags">电商 / App UI · 长期维护开发</span>
+          </div>
+          <div class="works-list__row">
+            <span class="meta">2018.06–2019.01</span>
+            <span class="works-list__name">国元期货 App UI</span>
+            <span class="works-list__tags">金融科技 · App UI · 商业项目</span>
+          </div>
+          <div class="works-list__row">
+            <span class="meta">2024.01–至今</span>
+            <span class="works-list__name">线下大型物料 · 展会 · 展厅视觉</span>
+            <span class="works-list__tags">龙泉远翔广告有限公司</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="shell">
+    <div class="section__body">
+      <div class="section__rail reveal" style="--i:0">
+        <span class="block-title">合作</span>
+      </div>
+      <div>
+        <h2 class="footer__title reveal" style="--i:1">开放平面 · Vibe Coding 合作</h2>
+        <p class="footer__note reveal" style="--i:2">*欢迎品牌方、开发团队就平面设计、线下物料制作及 AI 工具开发展开合作洽谈。</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/motion.js" defer></script>
+</body>
+</html>
